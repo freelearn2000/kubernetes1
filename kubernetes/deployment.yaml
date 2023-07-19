@@ -18,4 +18,4 @@ spec:
       - name: my-app-container
         image: freelearnteam2000/chatgptbackendproject1:latest
         ports:
-        - containerPort: 80  
+        - containerPort: 3000
