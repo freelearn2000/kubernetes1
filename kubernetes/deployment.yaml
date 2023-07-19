@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: my-app-container
-        image: <DOCKER_IMAGE_NAME>:<TAG>  # Replace with your Docker image and tag
+        image: freelearnteam2000/chatgptbackendproject1:latest
         ports:
         - containerPort: 80  
