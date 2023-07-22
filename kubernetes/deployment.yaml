@@ -1,21 +1,50 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deployment
+  name: node-app
   labels:
-    app: my-app
+    app: node
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: my-app
+      app: node
   template:
     metadata:
       labels:
-        app: my-app
+        app: node
     spec:
-      containers:
-      - name: my-app-container
-        image: freelearnteam2000/chatgptbackendproject1:latest
-        ports:
-        - containerPort: 3000
+       containers:
+         - name: node-app
+           image: freelearnteam2000/chatgptbackendproject1:latest
+           env:
+             - name: PORT
+               value: "30000"
+             - name: ENV
+               value: "Development"
+           ports:
+             - containerPort: 3000
+           volumeMounts:
+             - name: node-volume
+               mountPath: /usr/app/configs/
+           resources:
+       volumes:
+         - name: node-volume
+           configMap:
+             name: node-config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: node
+  ports:
+    - port: 8000
+      targetPort: 3000
+      nodePort: 30000
+      
