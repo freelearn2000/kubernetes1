@@ -1,10 +1,21 @@
+# Configure the Azure provider
+provider "azurerm" {
+  features {}
+}
+
+# Resource Group
+resource "azurerm_resource_group" "my_resource_group" {
+  name     = "my-aks-rg"
+  location = "East US"  # Replace with your desired Azure region
+}
+
+# AKS Cluster
 resource "azurerm_kubernetes_cluster" "my_cluster" {
   name                = "my-aks-cluster"
-  location            = "West Europe"
-  resource_group_name = "my-resource-group"
-  dns_prefix          = "myakscluster"
+  location            = azurerm_resource_group.my_resource_group.location
+  resource_group_name = azurerm_resource_group.my_resource_group.name
 
-  kubernetes_version = "1.22.2"
+  dns_prefix = "my-aks-cluster"
 
   default_node_pool {
     name       = "default"
@@ -12,27 +23,12 @@ resource "azurerm_kubernetes_cluster" "my_cluster" {
     vm_size    = "Standard_D2_v2"
   }
 
-  network_profile {
-    network_plugin = "azure"
-    network_policy = "azure"
-  }
 
-  service_principal {
-    client_id     = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    client_secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  }
-
-  addon_profile {
-    aci_connector_linux {
-      enabled = false
-    }
-    azure_policy {
-      enabled = true
-    }
+  identity {
+    type = "SystemAssigned"
   }
 
   tags = {
     Environment = "Production"
-    Team        = "DevOps"
   }
 }
