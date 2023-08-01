@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  annotations:
+    kubernetes.io/change-cause: "postgres 1.0.0 Deployment"
+spec:
+  replicas: 5     
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: freelearnteam2000/postgres.1.0.0
+          env:
+            - name: PORT
+              value: "3000"
+            - name: ENV
+              value: your_database_name_here
+            - name: POSTGRES_USERNAME
+              value: your_username_here
+            - name: POSTGRES_PASSWORD
+              value: your_username_here    
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+          resources:
+      volumes:
+        - name: postgres-storage
+          configMap:
+            name: node-config-volume
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: postgres
+  ports:
+    -  port: 3000
+       targetPort: 3000
+       nodePort: 30000
+#jhjmh
