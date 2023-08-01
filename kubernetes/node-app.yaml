@@ -19,7 +19,7 @@ spec:
            image: freelearnteam2000/chatgptbackendproject1:latest
            env:
              - name: PORT
-               value: "30000"
+               value: "8080"
              - name: ENV
                value: "Development"
            ports:
@@ -46,5 +46,5 @@ spec:
   ports:
     - port: 8000
       targetPort: 3000
-      nodePort: 30000
+     # nodePort: 30000
       
