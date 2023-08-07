@@ -1,4 +1,4 @@
-name: Kubernetes Deployment
+name: Kubernetes Deployment with Terraform
 
 on:
   push:
