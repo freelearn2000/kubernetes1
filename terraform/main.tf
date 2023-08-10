@@ -20,7 +20,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   }
 
   tags = {
-    environment = "dev"
+    environment = "staging"
   }
 }
 
@@ -66,7 +66,7 @@ resource "kubernetes_deployment" "example" {
 
       spec {
         container {
-          image = "freelearn2000/chatgpt-backend:1.0.0"  # Replace with your Docker image details
+          image = "freelearn2000/chatgpt:1.0.0"  # Replace with your Docker image details
           name  = "example-container"
         }
       }
