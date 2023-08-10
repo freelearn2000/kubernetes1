@@ -16,7 +16,7 @@ spec:
     spec:
        containers:
          - name: node-app
-           image: freelearnteam2000/chatgptbackendproject1:latest
+           image: freelearn2000/chatgpt:1.0.0
            env:
              - name: PORT
                value: "8080"
