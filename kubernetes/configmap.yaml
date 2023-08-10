@@ -4,5 +4,8 @@ metadata:
   name: node-config
   namespace: project1
 data:
-  apikey: "qwewdfwefwfwe"
+  default.json: |
+  {
+  apikey: "sk-SkdvOik189XwmNnUIiV5T3vOik189XwmNnUIiV5T3
   apisecret: "ythtyh"
+  }
