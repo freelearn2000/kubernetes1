@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: node-app
+  namespace: chatgpt
+  annotations:
+    kubernetes.io/change-cause: "Node 1.0.0 Deployment"
   labels:
     app: node
 spec:
@@ -18,15 +21,23 @@ spec:
          - name: node-app
            image: freelearn2000/chatgpt:1.0.0
            env:
-             - name: PORT
+             - name: NODE_PORT
                value: "8080"
-             - name: ENV
-               value: "Development"
+             - name: POSTGRES_HOST
+               value: "postgres-service"
+             - name: POSTGRES_PORT
+               value: "3000"
+             - name: POSTGRES_USER
+               value: "admin" 
+             - name: POSTGRES_PASSWORD
+               value: "admin123" 
+             - name: POSTGRES_DB
+               value: "chatgpt"   
            ports:
-             - containerPort: 3000
+             - containerPort: 8080
            volumeMounts:
              - name: node-volume
-               mountPath: /usr/app/configs/
+               mountPath: /usr/src/app/config/
            resources:
        volumes:
          - name: node-volume
@@ -39,12 +50,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: node-service
+  namespace: chatgpt
 spec:
   type: LoadBalancer
   selector:
     app: node
   ports:
     - port: 8000
-      targetPort: 3000
+      targetPort: 8080
      # nodePort: 30000
       

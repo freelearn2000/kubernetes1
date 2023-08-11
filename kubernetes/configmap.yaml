@@ -2,10 +2,20 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: node-config
-  namespace: project1
+  namespace: chatgpt
 data:
   default.json: |
-  {
-  apikey: "sk-SkdvOik189XwmNnUIiV5T3vOik189XwmNnUIiV5T3
-  apisecret: "ythtyh"
-  }
+    {
+    "OPENAI" : {
+        "api_key" : "sk-SkdvOik189XwmNnUIiV5T3vOik189XwmNnUIiV5T3",
+        "model" : "text-davinci-003",
+        "max_tokens" : 1024,
+        "temperature" : 0.2 
+    },
+    "PERSISTENCE" : {
+        "name" : "Project1",
+        "collection" : "ChatGPT"
+    },
+    "Logger_Type" : "Postgres"
+    }
+

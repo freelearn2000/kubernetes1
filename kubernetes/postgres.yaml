@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres-deployment
+  namespace: chatgpt
   annotations:
     kubernetes.io/change-cause: "postgres 1.0.0 Deployment"
 spec:
-  replicas: 5     
+  replicas: 1    
   selector:
     matchLabels:
       app: postgres
@@ -18,8 +19,8 @@ spec:
         - name: postgres
           image: freelearnteam2000/postgres.1.0.0
           env:
-            - name: PORT
-              value: "8080"
+            #- name: PORT
+            #  value: "8080"
             - name: POSTGRES_USER
               value: "postgres"
             - name: POSTGRES_HOST
@@ -31,7 +32,7 @@ spec:
             - name: POSTGRES_PORT
               value: "5432"   
           ports:
-            - containerPort: 3000
+            - containerPort: 5432
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
@@ -46,12 +47,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postgres-service
+  namespace: chatgpt
 spec:
   type: LoadBalancer
   selector:
     app: postgres
   ports:
     -  port: 3000
-       targetPort: 3000
+       targetPort: 5432
        nodePort: 30000
-#jhjmh
+
