@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: freelearnteam2000/postgres.1.0.0
+          image: freelearn2000/postgresdb:1.0.0
           env:
             #- name: PORT
             #  value: "8080"
@@ -49,11 +49,11 @@ metadata:
   name: postgres-service
   namespace: chatgpt
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: postgres
   ports:
     -  port: 3000
        targetPort: 5432
-       nodePort: 30000
+      
 
