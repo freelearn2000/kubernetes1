@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const bodyParser = require("body-parser");
 const config = require('config');
 require("dotenv").config();
@@ -151,8 +152,12 @@ app.get("/logs3", async (req, res) => {
 /* /
   Checks whether app is running
 */
+app.use(express.static(path.join(__dirname, 'build')));
+
 app.get("/", async (req, res) => {
-  res.status(200).send("SUCCESS");
+  // res.status(200).send("SUCCESS");
+  // Serve thr Frontend here
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 
 
