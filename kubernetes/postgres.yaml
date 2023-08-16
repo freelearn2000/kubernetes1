@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: freelearn2000/postgresdb:1.0.0
+          image: freelearn2000/postgresdb:1.0.1
           env:
             #- name: PORT
             #  value: "8080"
