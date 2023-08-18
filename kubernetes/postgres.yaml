@@ -4,7 +4,7 @@ metadata:
   name: postgres-deployment
   namespace: chatgpt
   annotations:
-    kubernetes.io/change-cause: "postgres 1.0.0 Deployment"
+    kubernetes.io/change-cause: "postgres 1.0.1 Deployment"
 spec:
   replicas: 1    
   selector:
@@ -19,29 +19,16 @@ spec:
         - name: postgres
           image: freelearn2000/postgresdb:1.0.1
           env:
-            #- name: PORT
-            #  value: "8080"
             - name: POSTGRES_USER
-              value: "postgres"
-            - name: POSTGRES_HOST
-              value: "localhost"
-            - name: POSTGRES_DB
-              value: "chatgpt" 
+              value: "admin"
             - name: POSTGRES_PASSWORD
               value: "admin123" 
-            - name: POSTGRES_PORT
-              value: "5432"   
+            - name: POSTGRES_DB
+              value: "chatgpt" 
+              
           ports:
             - containerPort: 5432
-          volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
           resources:
-      volumes:
-        - name: postgres-storage
-          configMap:
-            name: node-config-volume
-            
 ---
 apiVersion: v1
 kind: Service

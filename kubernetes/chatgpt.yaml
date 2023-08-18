@@ -36,10 +36,12 @@ spec:
         volumeMounts: 
           - name: node-config-volume
             mountPath: /usr/src/app/configs
+        resources:
       volumes:
         - name: node-config-volume
           configMap:
            name: node-config
+
 ---
 apiVersion: v1
 kind: Service
