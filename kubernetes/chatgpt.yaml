@@ -46,7 +46,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: node-service
+  name: chatgpt-service
   namespace: chatgpt
 spec: 
   type: LoadBalancer
