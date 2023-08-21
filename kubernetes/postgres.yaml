@@ -28,6 +28,7 @@ spec:
           ports:
             - containerPort: 5432
           resources:
+          
 ---
 apiVersion: v1
 kind: Service
