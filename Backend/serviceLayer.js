@@ -1,7 +1,9 @@
-const config = require('config');
+// const config = require('config');
 const fs = require('fs');
 // const { MongoClient } = require('mongodb');
 const { Client } = require('pg');
+const config = require("./configs/default.json");
+
 
 
 
@@ -16,8 +18,8 @@ const client = new Client({
 });
 
 
-const name = config.get('PERSISTENCE.name');
-const table = config.get('PERSISTENCE.collection');
+const name = config.PERSISTENCE.name;
+const table = config.PERSISTENCE.collection;
 
 // Connect to Persistence Layer
 // const connection_string = process.env.PERSISTENCE_CONNECTION || 'mongodb://127.0.0.1:27017';
@@ -26,7 +28,7 @@ const table = config.get('PERSISTENCE.collection');
 class Logger {
 
   constructor() {
-    this.logType = config.get('Logger_Type');
+    this.logType = config.Logger_Type;
   }
 
   getLogger() {

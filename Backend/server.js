@@ -2,10 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
-const config = require('config');
+// const config = require('config');
 require("dotenv").config();
 const axios = require("axios");
 const { Configuration, OpenAIApi } = require("openai");
+const config = require("./configs/default.json");
 const { FileLogAnalytics, dbLogAnalytics, PostgresLogAnalytics, Logger} = require("./serviceLayer");
 
 
@@ -13,10 +14,10 @@ const { FileLogAnalytics, dbLogAnalytics, PostgresLogAnalytics, Logger} = requir
 let loggerClient = new Logger().getLogger();
 
 // Retreive all Config data
-const openai_api_Key = config.get('OPENAI.api_key');
-const openai_model = config.get('OPENAI.model');
-const openai_max_tokens = config.get('OPENAI.max_tokens');
-const openai_temperature = config.get('OPENAI.temperature');
+const openai_api_Key = config.OPENAI.api_key;
+const openai_model = config.OPENAI.model;
+const openai_max_tokens = config.OPENAI.max_tokens;
+const openai_temperature = config.OPENAI.temperature;
 
 // Creating OpenAIApi Object
 const configuration = new Configuration({
@@ -163,9 +164,9 @@ app.get("/", async (req, res) => {
 
 
 // Retreive the port from environment variable
-const port = process.env.PORT || 8080;
+const port = process.env.NODE_PORT || 8080;
 
 // Start the App on given port
 app.listen(port, () => {
-  console.log(`Server listening on http://localhost:${port}`);
+  console.log(`Server listening at ${port}`);
 });
