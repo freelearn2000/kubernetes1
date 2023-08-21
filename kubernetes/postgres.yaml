@@ -24,8 +24,7 @@ spec:
             - name: POSTGRES_PASSWORD
               value: "admin123" 
             - name: POSTGRES_DB
-              value: "chatgpt" 
-              
+              value: "chatgpt"  
           ports:
             - containerPort: 5432
           resources:
