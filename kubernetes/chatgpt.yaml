@@ -4,7 +4,7 @@ metadata:
   name: chatgpt-deployment
   namespace: chatgpt
   annotations:
-    kubernetes.io/change-cause: "Deployed chatgpt version 1.0.0"
+    kubernetes.io/change-cause: "Deployed chatgpt version 1.0.1"
 spec:
   replicas: 5
   selector:
