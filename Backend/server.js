@@ -164,7 +164,7 @@ app.get("/", async (req, res) => {
 
 
 // Retreive the port from environment variable
-const port = process.env.NODE_PORT || 8080;
+const port = process.env.NODE_PORT || 9090;
 
 // Start the App on given port
 app.listen(port, () => {
