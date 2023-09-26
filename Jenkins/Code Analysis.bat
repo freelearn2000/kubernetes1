@@ -1,0 +1,1 @@
+echo "Verifying Code on standards : %date% %time%"

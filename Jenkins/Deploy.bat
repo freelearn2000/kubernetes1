@@ -1,0 +1,1 @@
+echo "Deploying build to Azure : %date% %time%"
