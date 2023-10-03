@@ -1,1 +1,0 @@
-echo "Checking out source from GitHub repo : %date% %time%"
