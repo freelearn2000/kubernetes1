@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+    stages {
+        stage('Code Analysis') {
+            steps {
+                bat 'Jenkins/Analysis.bat';
+                echo "Code analysis successfully completed!";
+            }
+            
+        }
+        stage('Build') {
+            steps {
+                bat 'Jenkins/Build.bat'
+                echo "Build successfully completed!"
+            }
+            
+        }
+        stage('Test') {
+            steps {
+                bat 'Jenkins/Test.bat';
+                echo "Unit test successfully completed!"
+            }
+            
+        }
+        stage('Deploy') {
+            steps {
+                bat 'Jenkins/Deploy.bat';
+                echo "Deployed successfully!"
+            }
+        }
+    }
+    post {
+        always {
+            echo "This will always run"
+        }
+        success {
+            echo "This will run only if successful"
+        }
+        failure {
+            echo "This will run only if failed"
+        }
+        unstable {
+            echo "This will run only if run was marked as unstable"
+        }
+        changed {
+            echo "This will run only if previous & current state of run was changed"
+        }
+    }
+}
