@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        AZURE_CREDENTIALS = credentials('azure-credentials')
+    }
     stages {
         stage('Code Analysis') {
             steps {
@@ -25,6 +28,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 // bat 'Jenkins/Deploy.bat';
+                echo "Deploying with ${AZURE_CREDENTIALS}"
                 echo "Deployed successfully!"
             }
         }
