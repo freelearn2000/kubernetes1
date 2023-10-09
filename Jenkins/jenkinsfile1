@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+    stages {
+        stage('checkout'){
+            steps {
+                deleteDir()
+                git branch: 'main', url: 'https://github.com/freelearn2000/kubernetes1.git';
+                echo "successfully checked out source from github repo"
+            }
+        }
+        stage('Code Analysis') {
+            steps {
+                bat 'Jenkins/Analysis.bat';
+                echo "Code analysis successfully completed!";
+            }
+            
+        }
+        stage('Build') {
+            steps {
+                bat 'Jenkins/Build.bat'
+                echo "Build successfully completed!"
+            }
+            
+        }
+        stage('Test') {
+            steps {
+                bat 'Jenkins/Test.bat';
+                echo "Unit test successfully completed!"
+            }
+            
+        }
+        stage('Deploy') {
+            steps {
+                bat 'Jenkins/Deploy.bat';
+                echo "Deployed successfully!"
+            }
+        }
+        stage('Copy Build to Backend') {
+            steps {
+                bat '''xcopy /s /e /i /h /y "C:/Users/new/AppData/Local/Jenkins/.jenkins/workspace/pipeline2/Frontend/build" "C:/Users/new/AppData/Local/Jenkins/.jenkins/workspace/pipeline2/Backend"'''
+                echo "Build artifacts copied to the backend successfully!"
+            }
+        }
+    }
+    post {
+        always {
+            echo "This will always run"
+        }
+        success {
+            echo "This will run only if successful"
+        }
+        failure {
+            echo "This will run only if failed"
+        }
+        unstable {
+            echo "This will run only if run was marked as unstable"
+        }
+        changed {
+            echo "This will run only if previous & current state of run was changed"
+        }
+    }
+}
