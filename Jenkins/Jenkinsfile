@@ -2,8 +2,15 @@ pipeline {
     agent any
     environment {
         AZURE_CREDENTIALS = credentials('azure-credentials')
+        VERSION = '1.2.0'
     }
     stages {
+        stage('Checkout') {
+            steps {
+                echo "Checkout source files from ${BRANCH_NAME}";
+            }
+            
+        }
         stage('Code Analysis') {
             steps {
                 // bat 'Jenkins/Analysis.bat';
