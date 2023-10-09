@@ -43,17 +43,6 @@ pipeline {
                 echo "Deploying with ${AZURE_CREDENTIALS}"
                 echo "Deployed to QA successfully!"
             }
-
-            when {
-                expression {
-                    BRANCH_NAME == 'main'
-                }
-            }
-            steps {
-                // bat 'Jenkins/Deploy.bat';
-                echo "Deploying with ${AZURE_CREDENTIALS}"
-                echo "Deployed to DEV successfully!"
-            }
         }
     }
     post {
