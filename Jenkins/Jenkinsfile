@@ -50,11 +50,6 @@ pipeline {
             }
         }
         stage('Deploy') {
-            when {
-                expression {
-                    BRANCH_NAME == 'main'
-                }
-            }
             steps {
                 // bat 'Jenkins/Deploy.bat';
                 // echo "Deploying with ${AZURE_CREDENTIALS}"
