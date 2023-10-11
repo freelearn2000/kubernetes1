@@ -12,14 +12,18 @@ pipeline {
     stages {
         stage('init') {
             steps {
-                gv = load "script.groovy"
+                script {
+                    gv = load "script.groovy"
+                }
             }
         }
         stage('Code Analysis') {
             steps {
                 // bat 'Jenkins/Analysis.bat';
                 // echo "Code analysis successfully completed!";
-                gv.codeAnalysis()
+                script {
+                    gv.codeAnalysis()
+                }
             }
         }
          stage('Unit Test') {
@@ -31,14 +35,18 @@ pipeline {
             steps {
                 // bat 'Jenkins/Test.bat';
                 // echo "Unit test successfully completed!"
-                gv.unitTest()
+                script {
+                    gv.unitTest()
+                }
             }
         }
         stage('Build') {
             steps {
                 // bat 'Jenkins/Build.bat'
                 // echo "Build successfully completed!"
-                gv.build()
+                script {
+                    gv.build()
+                }
             }
         }
         stage('Deploy') {
@@ -51,7 +59,9 @@ pipeline {
                 // bat 'Jenkins/Deploy.bat';
                 // echo "Deploying with ${AZURE_CREDENTIALS}"
                 // echo "Deployed ${params.VERSION} as part of ${params.TYPE} successfully!"
-                gv.deploy()
+                script {
+                    gv.deploy()
+                }
             }
         }
     }
