@@ -13,23 +13,20 @@ pipeline {
             steps {
                 echo "Checkout source files from ${BRANCH_NAME}";
             }
-            
         }
         stage('Code Analysis') {
             steps {
                 // bat 'Jenkins/Analysis.bat';
                 echo "Code analysis successfully completed!";
             }
-            
         }
         stage('Build') {
             steps {
                 // bat 'Jenkins/Build.bat'
                 echo "Build successfully completed!"
             }
-            
         }
-        stage('Test') 
+        stage('Test') {
             when {
                 expression {
                     EXECUTE_TEST == true
@@ -39,7 +36,6 @@ pipeline {
                 // bat 'Jenkins/Test.bat';
                 echo "Unit test successfully completed!"
             }
-            
         }
         stage('Deploy') {
             when {
