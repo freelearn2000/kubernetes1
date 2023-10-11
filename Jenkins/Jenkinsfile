@@ -2,7 +2,11 @@ pipeline {
     agent any
     environment {
         AZURE_CREDENTIALS = credentials('azure-credentials')
-        VERSION = '1.2.0'
+    }
+    parameters {
+        string(name: 'VERSION', defaultValue: '1.0.0', description: 'Version to deploy')
+        booleanParam(name: 'EXECUTE_TEST', defaultValue: true, description: '')
+        choice(name: 'TYPE', choices: ['New Feature', 'Bug Fixing', 'New Deployment'], description: '')
     }
     stages {
         stage('Checkout') {
@@ -25,7 +29,12 @@ pipeline {
             }
             
         }
-        stage('Test') {
+        stage('Test') 
+            when {
+                expression {
+                    EXECUTE_TEST == true
+                }
+            }
             steps {
                 // bat 'Jenkins/Test.bat';
                 echo "Unit test successfully completed!"
@@ -35,13 +44,13 @@ pipeline {
         stage('Deploy') {
             when {
                 expression {
-                    BRANCH_NAME == 'qa'
+                    BRANCH_NAME == 'main'
                 }
             }
             steps {
                 // bat 'Jenkins/Deploy.bat';
                 echo "Deploying with ${AZURE_CREDENTIALS}"
-                echo "Deployed to QA successfully!"
+                echo "Deployed ${VERSION} as part of ${TYPE} successfully!"
             }
         }
     }
