@@ -29,7 +29,7 @@ pipeline {
         stage('Test') {
             when {
                 expression {
-                    EXECUTE_TEST == true
+                    params.EXECUTE_TEST == true
                 }
             }
             steps {
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 // bat 'Jenkins/Deploy.bat';
                 echo "Deploying with ${AZURE_CREDENTIALS}"
-                echo "Deployed ${VERSION} as part of ${TYPE} successfully!"
+                echo "Deployed ${params.VERSION} as part of ${params.TYPE} successfully!"
             }
         }
     }
