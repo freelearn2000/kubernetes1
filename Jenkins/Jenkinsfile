@@ -1,3 +1,4 @@
+def gv
 pipeline {
     agent any
     environment {
@@ -9,10 +10,16 @@ pipeline {
         choice(name: 'TYPE', choices: ['New Feature', 'Bug Fixing', 'New Deployment'], description: '')
     }
     stages {
+        stage('init') {
+            steps {
+                gv = load "script.groovy"
+            }
+        }
         stage('Code Analysis') {
             steps {
                 // bat 'Jenkins/Analysis.bat';
-                echo "Code analysis successfully completed!";
+                // echo "Code analysis successfully completed!";
+                gv.codeAnalysis()
             }
         }
          stage('Unit Test') {
@@ -23,13 +30,15 @@ pipeline {
             }
             steps {
                 // bat 'Jenkins/Test.bat';
-                echo "Unit test successfully completed!"
+                // echo "Unit test successfully completed!"
+                gv.unitTest()
             }
         }
         stage('Build') {
             steps {
                 // bat 'Jenkins/Build.bat'
-                echo "Build successfully completed!"
+                // echo "Build successfully completed!"
+                gv.build()
             }
         }
         stage('Deploy') {
@@ -40,8 +49,9 @@ pipeline {
             }
             steps {
                 // bat 'Jenkins/Deploy.bat';
-                echo "Deploying with ${AZURE_CREDENTIALS}"
-                echo "Deployed ${params.VERSION} as part of ${params.TYPE} successfully!"
+                // echo "Deploying with ${AZURE_CREDENTIALS}"
+                // echo "Deployed ${params.VERSION} as part of ${params.TYPE} successfully!"
+                gv.deploy()
             }
         }
     }
