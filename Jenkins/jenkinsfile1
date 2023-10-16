@@ -13,32 +13,24 @@ pipeline {
                 bat 'Jenkins/Analysis.bat';
                 echo "Code analysis successfully completed!";
             }
-            
         }
-        stage('Build') {
-            steps {
-                bat 'Jenkins/Build.bat'
-                echo "Build successfully completed!"
-            }
-            
-        }
-        stage('Test') {
+        stage('Unit Test') {
             steps {
                 bat 'Jenkins/Test.bat';
                 echo "Unit test successfully completed!"
             }
-            
+        }   
+        stage('Build') {
+            steps {
+                bat 'Jenkins/Build.bat'
+                bat '''xcopy /s /e /i /h /y "./Frontend/build" "./Backend"''';
+                echo "Build successfully completed!"
+            }
         }
         stage('Deploy') {
             steps {
                 bat 'Jenkins/Deploy.bat';
                 echo "Deployed successfully!"
-            }
-        }
-        stage('Copy Build to Backend') {
-            steps {
-                bat '''xcopy /s /e /i /h /y "C:/Users/new/AppData/Local/Jenkins/.jenkins/workspace/pipeline2/Frontend/build" "C:/Users/new/AppData/Local/Jenkins/.jenkins/workspace/pipeline2/Backend"'''
-                echo "Build artifacts copied to the backend successfully!"
             }
         }
     }
