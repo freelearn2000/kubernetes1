@@ -1,6 +1,9 @@
 def gv
 pipeline {
     agent any
+    tools {
+        terraform 'terraform-1-6-1'
+    }
     environment {
         AZURE_CREDENTIALS = credentials('azure-credentials')
     }
@@ -10,7 +13,7 @@ pipeline {
         choice(name: 'TYPE', choices: ['New Feature', 'Bug Fixing', 'New Deployment'], description: '')
     }
     stages {
-        stage('init') {
+        stage('Groovy init') {
             steps {
                 script {
                     gv = load "Jenkins/script.groovy"
@@ -43,9 +46,9 @@ pipeline {
         stage('Build') {
             steps {
                 // bat 'Jenkins/Build.bat'
-                // echo "Build successfully completed!"
+                echo "Build successfully completed!"
                 script {
-                    gv.build()
+                     gv.build()
                 }
             }
         }
