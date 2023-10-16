@@ -13,12 +13,20 @@ def build() {
 def deploy() {
   echo "Deploying with ${AZURE_CREDENTIALS}"
 
-  if (BRANCH_NAME == 'main') {
-    echo "Deploying to DEV"
-  } else if (BRANCH_NAME == 'QA') {
-    echo "Deploying to QA"
+  if (BRANCH_NAME == 'stage') {
+    dir('./terraform/staging') {
+      bat 'terraform init'
+      bat 'terraform apply'
+      echo "Deploying to STAGING"
+    }
+  } else if (BRANCH_NAME == 'prod') {
+    dir('./terraform/production') {
+      bat 'terraform init'
+      bat 'terraform apply'
+      echo "Deploying to PRODUCTION"
+    }
   } else {
-    echo "Deploying to PROD"
+    echo "Deploying to DEV"
   }
 
   echo "Deployed ${params.VERSION} as part of ${params.TYPE} successfully!"
