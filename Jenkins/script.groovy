@@ -7,7 +7,9 @@ def unitTest() {
 }
 
 def build() {
+  npm ci && npm run build
   echo "Build successfully completed!"
+  
 }
 
 def deploy() {
