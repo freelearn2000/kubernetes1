@@ -17,14 +17,14 @@ def deploy() {
 
   if (BRANCH_NAME == 'stage') {
     dir('./terraform/staging') {
-      bat 'terraform init'
-      bat 'terraform apply'
+      // bat 'terraform init'
+      // bat 'terraform apply'
       echo "Deploying to STAGING"
     }
   } else if (BRANCH_NAME == 'prod') {
     dir('./terraform/production') {
-      bat 'terraform init'
-      bat 'terraform apply'
+      // bat 'terraform init'
+      // bat 'terraform apply'
       echo "Deploying to PRODUCTION"
     }
   } else {
