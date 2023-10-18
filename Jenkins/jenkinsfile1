@@ -23,8 +23,7 @@ pipeline {
         stage('Build') {
             steps {
                 bat 'Jenkins/Build.bat'
-                bat '''xcopy /s /e /i /h /y "./Frontend/build" "./Backend"''';
-                echo "Build successfully completed!"
+                 echo "Build successfully completed!"
             }
         }
         stage('Deploy') {
