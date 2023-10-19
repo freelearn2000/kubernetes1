@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('checkout'){
+        stage('Checkout'){
             steps {
                 deleteDir()
                 git branch: 'main', url: 'https://github.com/freelearn2000/kubernetes1.git';
