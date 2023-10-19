@@ -17,6 +17,7 @@ pipeline {
             steps {
                 script {
                     gv = load "Jenkins/script.groovy"
+                    echo "Groovy script successfully loaded!";
                 }
             }
         }
@@ -46,9 +47,9 @@ pipeline {
         stage('Build') {
             steps {
                 // bat 'Jenkins/Build.bat'
-                echo "Build successfully completed!"
                 script {
-                     gv.build()
+                    gv.build()
+                    echo "Build successfully completed!"
                 }
             }
         }
