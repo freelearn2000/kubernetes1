@@ -7,7 +7,8 @@ def unitTest() {
 }
 
 def build() {
-  npm ci && npm run build
+  bat '''cd ./Frontend'''
+  bat '''npm ci && npm run build && Xcopy .\\build ..\\Backend\\build /E /I /Y'''
   echo "Build successfully completed!"
   
 }
