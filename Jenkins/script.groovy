@@ -11,6 +11,7 @@ def build() {
   // bat 'npm ci && npm run build && Xcopy .\\build ..\\Backend\\build /E /I /Y'
   dir('Frontend') {
     bat 'npm ci && npm run build'
+    bat 'Xcopy .\\build ..\\Backend\\build /E /I /Y'
   }
   echo "Build successfully completed!"
 }
