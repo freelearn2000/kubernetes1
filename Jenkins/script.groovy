@@ -7,10 +7,12 @@ def unitTest() {
 }
 
 def build() {
-  bat 'cd ./Frontend'
-  bat 'npm ci && npm run build && Xcopy .\\build ..\\Backend\\build /E /I /Y'
+  // bat 'cd ./Frontend'
+  // bat 'npm ci && npm run build && Xcopy .\\build ..\\Backend\\build /E /I /Y'
+  dir('Frontend') {
+    bat 'npm ci && npm run build'
+  }
   echo "Build successfully completed!"
-  
 }
 
 def deploy() {
