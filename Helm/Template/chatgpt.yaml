@@ -19,18 +19,13 @@ spec:
       - name: chatgpt-app
         image: {{if .Values.production}} {{.Values.dockerProImage}} {{else}} {{.Values.dockerDevImage}}{{end}}      
         env:
-          - name: NODE_PORT
-            value: "8080"
-          - name: POSTGRES_HOST
-            value: "postgres-service"
-          - name: POSTGRES_PORT
-            value: "3000"
-          - name: POSTGRES_USER
-            value: "admin"
-          - name: POSTGRES_PASSWORD
-            value: "admin123"
-          - name: POSTGRES_DB
-            value: "chatgpt"
+          env:
+             Node_PORT: {{ .Values.chatgptapp.Node.port }}
+             DB_HOST: {{ .Values.chatgptapp.database.host }}
+             DB_PORT: {{ .Values.chatgptapp.database.port | default "5432" }}
+             DB_USER: {{ .Values.chatgptapp.database.user }}
+             DB_PASSWORD: {{ .Values.chatgptapp.database.password }}
+             DB_NAME: {{ .Values.chatgptapp.database.name }}
         ports:
           - containerPort: 8080 
         volumeMounts: 
@@ -53,6 +48,6 @@ spec:
   selector:
     app: chatgpt
  ports:
-  - name: http
-    port: 80
+  - name: TCP
+    port: 3000
     nodePort: {{.Values.nodePort}}    
