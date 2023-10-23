@@ -18,7 +18,6 @@ spec:
       containers:
         - name: postgres
           image: {{if .Values.production}} {{.Values.dockerProImage}} {{else}} {{.Values.dockerDevImage}}{{end}}
-          env:
             data:
               POSTGRES_USER: {{ .Values.postgres.env.POSTGRES_USER }}
               POSTGRES_PASSWORD: {{ .Values.postgres.env.POSTGRES_PASSWORD }}
