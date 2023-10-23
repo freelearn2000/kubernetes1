@@ -19,12 +19,10 @@ spec:
         - name: postgres
           image: {{if .Values.production}} {{.Values.dockerProImage}} {{else}} {{.Values.dockerDevImage}}{{end}}
           env:
-            - name: POSTGRES_USER
-              value: "admin"
-            - name: POSTGRES_PASSWORD
-              value: "admin123" 
-            - name: POSTGRES_DB
-              value: "chatgpt"  
+            data:
+              POSTGRES_USER: {{ .Values.postgres.env.POSTGRES_USER }}
+              POSTGRES_PASSWORD: {{ .Values.postgres.env.POSTGRES_PASSWORD }}
+              POSTGRES_DB: {{ .Values.postgres.env.POSTGRES_DB }}  
           ports:
             - containerPort: 5432
           resources:
