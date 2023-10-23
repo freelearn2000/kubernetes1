@@ -18,7 +18,7 @@ spec:
       containers:
       - name: chatgpt-app
         image: {{if .Values.production}} {{.Values.dockerProImage}} {{else}} {{.Values.dockerDevImage}}{{end}}      
-        env:
+        data:
              Node_PORT: {{ .Values.chatgptapp.env.Node_port }}
              DB_HOST: {{ .Values.chatgptapp.env.database_host }}
              DB_PORT: {{ .Values.chatgptapp.env.database_port | default "5432" }}
