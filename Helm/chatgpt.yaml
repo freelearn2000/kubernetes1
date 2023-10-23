@@ -1,12 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chatgpt-deployment
-  namespace: chatgpt
-  annotations:
-    kubernetes.io/change-cause: "Deployed chatgpt version 1.0.1"
+  name: {{.Release.Name}} -chatgpt-deployment
 spec:
-  replicas: 5
+  replicas: {{.Values.numberofReplicas}}
   selector:
     matchLabels:
       app: chatgpt
@@ -17,7 +14,7 @@ spec:
     spec:
       containers:
       - name: chatgpt-app
-        image: freelearn2000/chatgpt:1.0.1      
+        image: {{if .Values.production}} {{.Values.dockerProImage}} {{else}} {{.Values.dockerDevImage}}{{end}}      
         env:
           - name: NODE_PORT
             value: "8080"
@@ -46,13 +43,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: chatgpt-service
-  namespace: chatgpt
+  name: {{.Release.Name}}-chatgpt-service
 spec: 
-  type: LoadBalancer
+  type: Nodeport
   selector:
     app: chatgpt
   ports:
-  - port: 3000
-    targetPort: 8080
-    nodePort: 31000           
+  - name: http
+    port: 80
+    nodePort: {{.Values.nodePort}}           
