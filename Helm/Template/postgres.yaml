@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-deployment
+  name: {{.Release.Name}}-postgres-deployment
   namespace: chatgpt
   annotations:
     kubernetes.io/change-cause: "postgres 1.0.1 Deployment"
 spec:
-  replicas: 1    
+  replicas: {{.Values.numberofReplicas}}    
   selector:
     matchLabels:
       app: postgres
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: freelearn2000/postgresdb:1.0.1
+          image: {{if .Values.production}} {{.Values.dockerProImage}} {{else}} {{.Values.dockerDevImage}}{{end}}
           env:
             - name: POSTGRES_USER
               value: "admin"
@@ -33,7 +33,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
+  name: {{.Release.Name}}-postgres-service
   namespace: chatgpt
 spec:
   type: ClusterIP
