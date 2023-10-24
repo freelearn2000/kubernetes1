@@ -43,7 +43,7 @@ metadata:
   name: {{.Release.Name}}-chatgpt-service
   namespace: chatgpt
 spec: 
-  type: LoadBalancer
+  type: nodeport
   selector:
     app: chatgpt
  ports:
